@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celluloid - Python Animation</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0; /* Light gray background */
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 250px;
+      background: #4CAF50; /* Green background */
+      color: white;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      transform: translateX(-100%);
+      animation: slideIn 0.5s forwards;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 15px 0;
+    }
+
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .sidebar ul li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(10px);
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      background: white;
+      border-radius: 20px 0 0 20px;
+      margin-left: -20px;
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content h1 {
+      color: #4CAF50; /* Green heading */
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .main-content p {
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .main-content ol {
+      padding-left: 20px;
+    }
+
+    .main-content ol li {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .main-content ol li strong {
+      color: #4CAF50; /* Green for strong text */
+    }
+
+    /* Card Styles for Sections */
+    section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Code Block Styles */
+    .code-container {
+      position: relative;
+      background: #f9f9f9; /* Light gray background */
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .code-buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .copy-button, .run-button {
+      background: #4CAF50; /* Green buttons */
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .copy-button:hover, .run-button:hover {
+      background: #45a049; /* Darker green on hover */
+    }
+
+    /* Code Execution Section */
+    .code-execution {
+      margin-top: 30px;
+    }
+
+    .code-execution h2 {
+      color: #4CAF50; /* Green heading */
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .code-execution iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animation for Sidebar */
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        transform: translateY(-100%);
+        animation: slideDown 0.5s forwards;
+      }
+
+      .main-content {
+        margin-left: 0;
+        border-radius: 0;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#key-features">Key Features</a></li>
+        <li><a href="#install">Installation</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="#real">Real World Use Cases</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#references">References and Further Readings</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Celluloid: The Simplest Way to Animate Matplotlib Plots</h1>
+      
+      <!-- Intro Section -->
+      <section id="intro">
+        <h1>Intro</h1>
+        <p>A lightweight Python package called Celluloid makes it easy and quick to animate Matplotlib charts. With just a few lines of code, users may create fluid animations with Celluloid, in contrast to Matplotlib's built-in animation module, which requires sophisticated programming. It is perfect for viewing dynamic data because it captures frames with ease. We'll go over how to install it, its main characteristics, and useful applications in this blog.</p>
+      </section>
+
+      <!-- Key Features Section -->
+      <section id="key-features">
+        <h1>Key Features of Celluloid</h1>
+        <ol>
+            <li><strong>Simple and Easy to Use</strong> – Requires minimal code to animate Matplotlib plots compared to the built-in FuncAnimation module.</li>
+            <li><strong>Seamless Integration with Matplotlib</strong> – Works directly with Matplotlib, making it easy to convert static plots into animations.</li>
+            <li><strong>Frame-by-Frame Recording</strong> – Captures each frame with a single function call (camera.snap()), eliminating complex looping structures.</li>
+            <li><strong>Lightweight and Efficient</strong> – A small library that doesn’t add significant overhead to your project.</li>
+            <li><strong>Compatible with Various Outputs</strong> – Supports saving animations as GIFs, MP4s, or displaying them in Jupyter notebooks.</li>
+            <li><strong>No Extra Dependencies</strong> – Only requires Matplotlib, making it easy to install and use without additional packages.</li>
+          </ol>
+      </section>
+
+      <!-- Installation Section -->
+      <section id="install">
+        <h1>Installation</h1>
+        <p>Follow these steps to install and use Celluloid:</p>
+        <div class="code-container">
+          <pre><code id="code1"># Step 1: Install Celluloid
+pip install celluloid</code></pre>
+          
+      </section>
+
+      <!-- Examples Section -->
+      <section id="examples">
+        <h1>Examples</h1>
+        <p>Let us explore some of the features of Celluloid with some examples.</p>
+
+        <!-- Quadratic Example -->
+        <h2>Visualising a Quadratic Function</h2>
+        <div class="code-container">
+          <pre><code id="code1">
+import numpy as np
+import matplotlib.pyplot as plt
+from celluloid import Camera
+            
+# Create a figure and axis
+fig, ax = plt.subplots()
+            
+# Create a camera to take snapshots of the figure
+camera = Camera(fig)
+            
+# Define the x values
+x = np.linspace(-10, 10, 400)
+            
+# Define the range of 'a' values to animate
+a_values = np.linspace(-1, 1, 100)
+            
+# Loop through different 'a' values and plot the quadratic function
+for a in a_values:
+    y = a * x**2 + 2 * x + 1  # Quadratic function y = ax^2 + bx + c
+    ax.plot(x, y, label=f'a = {a:.2f}')
+    ax.set_xlim(-10, 10)
+    ax.set_ylim(-10, 10)
+    ax.legend(loc='upper right')
+    camera.snap()  # Take a snapshot for the animation
+            
+# Create the animation
+animation = camera.animate()
+plt.close(fig)
+            
+# Display the animation in the Colab notebook
+from IPython.display import HTML
+HTML(animation.to_html5_video())</code></pre>
+         
+        <video controls width="600">
+          <source src="quadratic_animation.mp4" type="video/mp4">
+        </video>
+
+        <!-- Sine Wave Example -->
+        <h2>Animating a Sine Wave</h2>
+        <div class="code-container">
+          <pre><code id="code3">
+import numpy as np
+import matplotlib.pyplot as plt
+from celluloid import Camera
+from IPython.display import HTML
+from IPython.display import Image
+import matplotlib.animation as animation
+# Set up the figure and camera
+fig, ax = plt.subplots()
+camera = Camera(fig)
+
+x = np.linspace(0, 4*np.pi, 100)  # X values
+for i in range(100):
+    y = np.sin(x + i * 0.1)  # Shift sine wave over time
+    ax.plot(x, y, 'b')  # Plot updated sine wave
+    camera.snap()  # Capture frame
+
+# Create animation
+animation = camera.animate(interval=50)  # Interval in milliseconds
+plt.close(fig)
+from IPython.display import HTML
+HTML(animation.to_jshtml())  # Displays interactive animation
+          </code></pre>
+          
+        
+        <video controls width="600">
+          <source src="sine_wave_animation.mp4" type="video/mp4">
+        </video>
+
+        <!-- Stock Price Example -->
+        <h2>Stock Price Animation</h2>
+        <div class="code-container">
+          <pre><code id="code3">
+import yfinance as yf
+import matplotlib.pyplot as plt
+from celluloid import Camera
+
+# Fetch stock data
+ticker = "AAPL"  # Example: Apple Inc.
+data = yf.download(ticker, start="2023-01-01", end="2023-10-01")
+dates = data.index
+prices = data['Close']
+
+# Set up the plot and camera
+fig, ax = plt.subplots(figsize=(10, 5))
+camera = Camera(fig)
+
+# Animate the stock price
+for i in range(len(dates)):
+    ax.plot(dates[:i+1], prices[:i+1], color='blue', lw=2)  # Plot up to the i-th point
+    ax.set_title(f'{ticker} Stock Price Animation')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Price (USD)')
+    ax.grid(True, linestyle='--', alpha=0.7)
+    camera.snap()  # Capture the frame
+
+# Create the animation
+animation = camera.animate(interval=50)
+
+# Display the animation
+from IPython.display import HTML
+HTML(animation.to_html5_video())
+          </code></pre>
+        
+          <video controls width="600">
+            <source src="stock_market.mp4" type="video/mp4">
+          </video>
+          
+      </section>
+
+      <!-- Key Features Section -->
+      <section id="#real">
+        <h1>Real World Use Cases</h1>
+        <ol>
+            <li><strong>Educational Visualizations</strong> – Helps students and educators animate mathematical functions, physics simulations, and algorithm demonstrations for better understanding.</li>
+            <li><strong>Stock Market & Financial Analysis</strong> – Used to animate trends in stock prices, market fluctuations, and financial data over time.
+            </li>
+            <li><strong>Climate & Weather Data Visualization</strong> – Useful for animating temperature changes, rainfall distribution, and climate patterns over different periods.
+            </li>
+            <li><strong>Medical & Healthcare Analytics</strong> – Can be used to animate patient data trends, ECG waveforms, or disease spread over time.
+</li>
+            <li><strong>Social Media & Marketing Analytics</strong> – Visualizes audience engagement, campaign performance, and trends dynamically.
+            </li>
+            <li><strong>Traffic & Navigation Data</strong> – Used for tracking vehicle movement, congestion trends, and route optimization analysis.
+            </li>
+          </ol>
+      </section>
+
+      <!-- Conclusion Section -->
+      <section id="conclusion">
+        <h1>Conclusion</h1>
+        <p>Celluloid simplifies and streamlines animating Matplotlib plots, making the development of complex code unnecessary. Data visualizations are easily brought to life using minimal commands. From presentations, through research, to artistic projects, Celluloid is an effective tool for seamless animations in Python.</p>
+      </section>
+      <!-- Conclusion Section -->
+      <section id="references">
+        <h1>References & Further Reading</h1>
+        <ul>
+          <li><a href="https://github.com/jwkvam/celluloid">Official GitHub Repository</a></li>
+          <li><a href="https://matplotlib.org/stable/users/animation.html">Matplotlib Animation Documentation</a></li>
+        </ul>
+      </section>
+        
+    </div>
+  </div>
+        
+
+
+</body>
+</html>
