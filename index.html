@@ -239,18 +239,105 @@
       </section>
 
       <!-- Key Features Section -->
-      <section id="key-features">
-        <h1>Key Features of Celluloid</h1>
-        <ol>
-            <li><strong>Simple and Easy to Use</strong> – Requires minimal code to animate Matplotlib plots compared to the built-in FuncAnimation module.</li>
-            <li><strong>Seamless Integration with Matplotlib</strong> – Works directly with Matplotlib, making it easy to convert static plots into animations.</li>
-            <li><strong>Frame-by-Frame Recording</strong> – Captures each frame with a single function call (camera.snap()), eliminating complex looping structures.</li>
-            <li><strong>Lightweight and Efficient</strong> – A small library that doesn’t add significant overhead to your project.</li>
-            <li><strong>Compatible with Various Outputs</strong> – Supports saving animations as GIFs, MP4s, or displaying them in Jupyter notebooks.</li>
-            <li><strong>No Extra Dependencies</strong> – Only requires Matplotlib, making it easy to install and use without additional packages.</li>
-          </ol>
-      </section>
+      <!-- Key Features Section -->
+<section id="key-features">
+  <h1>Key Features of Celluloid</h1>
+  <ol>
+    <li>
+      <strong>Camera Class for Frame Capture</strong> - Simplifies animation creation by capturing plot frames automatically.
+      <div class="code-container">
+        <pre><code>
+from celluloid import Camera
+fig, ax = plt.subplots()
+camera = Camera(fig)
+for i in range(10):
+    ax.plot([i], [i], 'ro')
+    camera.snap()
+animation = camera.animate()</code></pre>
+      </div>
+    </li>
 
+    <li>
+      <strong>Seamless Matplotlib Integration</strong> - Works directly with existing Matplotlib code.
+      <div class="code-container">
+        <pre><code>
+# Regular Matplotlib plot
+ax.plot(x, y, 'b-')
+
+# Add animation
+camera = Camera(fig)
+for frame in frames:
+    ax.plot(updated_data)
+    camera.snap()</code></pre>
+      </div>
+    </li>
+
+    <li>
+      <strong>Multi-Subplot Animations</strong> - Handles complex layouts with multiple subplots.
+      <div class="code-container">
+        <pre><code>
+fig, (ax1, ax2) = plt.subplots(1, 2)
+camera = Camera(fig)
+for i in range(100):
+    ax1.plot(x[:i], y1[:i])
+    ax2.plot(x[:i], y2[:i])
+    camera.snap()</code></pre>
+      </div>
+    </li>
+
+    <li>
+      <strong>Multiple Output Formats</strong> - Save as GIFs or MP4s.
+      <div class="code-container">
+        <pre><code>
+animation.save('output.gif', writer='pillow', fps=20)
+animation.save('output.mp4', writer='ffmpeg', fps=20)</code></pre>
+      </div>
+    </li>
+
+    <li>
+      <strong>Real-Time Annotations</strong> - Add dynamic text and markers.
+      <div class="code-container">
+        <pre><code>
+for i in range(100):
+    ax.plot(x[i], y[i], 'ro')
+    ax.text(x[i], y[i], f'Frame {i}')
+    camera.snap()</code></pre>
+      </div>
+    </li>
+
+    <li>
+      <strong>3D Animation Support</strong> - Create complex 3D visualizations.
+      <div class="code-container">
+        <pre><code>
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+camera = Camera(fig)
+for i in range(100):
+    ax.plot(x[:i], y[:i], z[:i])
+    camera.snap()</code></pre>
+      </div>
+    </li>
+
+    <li>
+      <strong>Lightweight & Efficient</strong> - Minimal dependencies.
+      <div class="code-container">
+        <pre><code>
+# Only requires:
+!pip install celluloid matplotlib</code></pre>
+      </div>
+    </li>
+
+    <li>
+      <strong>Smooth Transitions</strong> - Built-in interpolation between frames.
+      <div class="code-container">
+        <pre><code>
+animation = camera.animate(interval=50, 
+                          blit=True, 
+                          repeat_delay=1000)</code></pre>
+      </div>
+    </li>
+  </ol>
+</section>
       <!-- Installation Section -->
       <section id="install">
         <h1>Installation</h1>
